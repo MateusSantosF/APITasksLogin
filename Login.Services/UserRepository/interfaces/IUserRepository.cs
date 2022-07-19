@@ -8,5 +8,7 @@ namespace Login.Services.UserRepository.interfaces
         List<User> GetAllUsers();
 
         Task<bool> InsertUser(User user);
+
+        User? GetUser(string email, string password);
     }
 }

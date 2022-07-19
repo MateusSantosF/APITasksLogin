@@ -20,12 +20,9 @@ namespace Login.Facades.UserFacade
         }
 
 
-        public async Task<User> GetUserAsync(string email, string password)
+        public User? GetUser(string email, string password)
         {
-            return await Task.Run(() =>
-            {
-                return new User() { Name = "Mateus" };
-            });
+            return _userRepository.GetUser(email, password);
         }
 
         public async Task<bool> SignUpUserAsync(string email, string password, string name)

@@ -1,5 +1,4 @@
-﻿using Login.Facades.UserFacade;
-using Login.Facades.UserFacade.interfaces;
+﻿using Login.Facades.UserFacade.interfaces;
 using Login.Models.User;
 using Microsoft.AspNetCore.Mvc;
 
@@ -17,9 +16,14 @@ namespace Mateus.Api.Login.Controllers
 
 
         [HttpGet]
-        public async Task<IActionResult> GetUserAsync([FromQuery] User user)
+        public IActionResult GetUser([FromQuery] string email, string password)
         {
-            return Ok(await _userFacade.GetUserAsync(user.Email, user.Password));
+            var result = _userFacade.GetUser(email, password);
+
+            if (result is null) return NotFound();
+
+            return Ok(result);
+
         }
 
         [HttpGet("all")]

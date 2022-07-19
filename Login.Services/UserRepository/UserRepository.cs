@@ -23,6 +23,11 @@ namespace Login.Services.UserRepository
             return _userContext.Users.ToList();
         }
 
+        public User? GetUser(string email, string password)
+        {
+            return _userContext.Users.Where(user => user.Email.Equals(email) && user.Password.Equals(password)).SingleOrDefault();
+        }
+
         public async Task<bool> InsertUser(User user)
         {
             await _userContext.AddAsync(user);
