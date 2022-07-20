@@ -22,6 +22,10 @@ namespace Login.Facades.UserFacade
         public async Task<bool> SignUpUserAsync(string email, string password, string name)
         {
 
+            var user = _userRepository.ExistsUserEmail(email);
+
+            if (user) return false;
+
             return await _userRepository.InsertUser(new User() { Id = Guid.NewGuid().ToString(),Email = email, Password = password, Name = name });
         }
 

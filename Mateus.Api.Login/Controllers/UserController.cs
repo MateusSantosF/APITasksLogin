@@ -26,7 +26,6 @@ namespace Mateus.Api.Login.Controllers
             if (result is null) return NotFound();
 
             var token = _tokenService.GenerateToken(result);
-
             result.Password = "";
 
             return new { user = result, token = token };
@@ -41,10 +40,12 @@ namespace Mateus.Api.Login.Controllers
         }
 
         [HttpPost]
-        //[Authorize]
+        [AllowAnonymous]
         public async Task<IActionResult> SignUpUserAsync(string email, string password, string name)
         {
-            return Ok(await _userFacade.SignUpUserAsync(email, password, name));
+            var result = await _userFacade.SignUpUserAsync(email, password, name);
+
+            return result ? Ok("Registered successfully") : BadRequest("There is already a user with this data");
         }
         
     }

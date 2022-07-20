@@ -13,9 +13,8 @@ namespace Login.Services.Context
 
         public UserContext(DbContextOptions options) : base(options)
         {
-          
-        }
 
+        }
 
     }
 }

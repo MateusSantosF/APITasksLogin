@@ -1,6 +1,10 @@
+using Login.Facades.TaskFacade;
+using Login.Facades.TaskFacade.interfaces;
 using Login.Facades.UserFacade;
 using Login.Facades.UserFacade.interfaces;
 using Login.Services.Context;
+using Login.Services.TaskService;
+using Login.Services.TaskService.interfaces;
 using Login.Services.TokenService;
 using Login.Services.TokenService.interfaces;
 using Login.Services.UserRepository;
@@ -41,8 +45,10 @@ builder.Services.AddAuthentication(x =>
 
 // INJECT 
 builder.Services.AddScoped<IUserFacade, UserFacade>();
+builder.Services.AddScoped<ITaskFacade, TaskFacade>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ITokenService, TokenService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
 
 // DATABASE
 builder.Services.AddDbContext<UserContext>(options =>
@@ -61,8 +67,8 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
 app.UseAuthentication();
+app.UseAuthorization();
 
 app.MapControllers();
 

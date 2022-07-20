@@ -13,6 +13,11 @@ namespace Login.Services.UserRepository
             _userContext = userContext;
         }
 
+        public bool ExistsUserEmail(string email)
+        {
+            return _userContext.Users.Any(u => u.Email == email);
+        }
+
         public List<User> GetAllUsers()
         {
             return _userContext.Users.ToList();
@@ -20,7 +25,7 @@ namespace Login.Services.UserRepository
 
         public User? GetUser(string email, string password)
         {
-            return _userContext.Users.Where(user => user.Email.Equals(email) && user.Password.Equals(password)).SingleOrDefault();
+            return _userContext.Users.Where(user => user.Email.Equals(email) && user.Password.Equals(password)).FirstOrDefault();
         }
 
         public async Task<bool> InsertUser(User user)

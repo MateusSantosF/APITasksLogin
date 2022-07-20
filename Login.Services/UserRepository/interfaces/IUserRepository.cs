@@ -10,5 +10,7 @@ namespace Login.Services.UserRepository.interfaces
         Task<bool> InsertUser(User user);
 
         User? GetUser(string email, string password);
+
+        bool ExistsUserEmail(string email);
     }
 }

@@ -1,11 +1,14 @@
-﻿using Login.Models;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Login.Models
 {
+    [Table("Task")]
     public class Task
     {
+
+
+        public Task() { }
 
         [Key]
         public string Id { get; set; }
