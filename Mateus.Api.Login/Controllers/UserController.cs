@@ -1,5 +1,6 @@
 ﻿using Login.Facades.UserFacade.interfaces;
-using Login.Models.User;
+using Login.Services.TokenService.interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Mateus.Api.Login.Controllers
@@ -9,31 +10,38 @@ namespace Mateus.Api.Login.Controllers
     public class UserController:ControllerBase
     {
         private readonly IUserFacade _userFacade;
-        public UserController(IUserFacade userFacade)
+        private readonly ITokenService _tokenService;
+
+        public UserController(IUserFacade userFacade, ITokenService tokenService)
         {
             _userFacade = userFacade;
+            _tokenService = tokenService;
         }
 
-
         [HttpGet]
-        public IActionResult GetUser([FromQuery] string email, string password)
+        [AllowAnonymous]
+        public ActionResult<dynamic> GetUser([FromQuery] string email, string password)
         {
             var result = _userFacade.GetUser(email, password);
-
             if (result is null) return NotFound();
 
-            return Ok(result);
+            var token = _tokenService.GenerateToken(result);
+
+            result.Password = "";
+
+            return new { user = result, token = token };
 
         }
 
         [HttpGet("all")]
+        [Authorize]
         public IActionResult GetAllUsers()
         {
             return Ok(_userFacade.GetAllUsers());
         }
 
-
         [HttpPost]
+        //[Authorize]
         public async Task<IActionResult> SignUpUserAsync(string email, string password, string name)
         {
             return Ok(await _userFacade.SignUpUserAsync(email, password, name));

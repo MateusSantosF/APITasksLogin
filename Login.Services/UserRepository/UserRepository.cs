@@ -1,11 +1,6 @@
-﻿using Login.Models.User;
+﻿using Login.Models;
 using Login.Services.Context;
 using Login.Services.UserRepository.interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Login.Services.UserRepository
 {

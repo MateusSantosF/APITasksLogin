@@ -1,9 +1,4 @@
-﻿using Login.Models.User;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Login.Models;
 
 namespace Login.Facades.UserFacade.interfaces
 {
@@ -13,7 +8,6 @@ namespace Login.Facades.UserFacade.interfaces
         public User? GetUser(string email, string password);
 
         public Task<bool> SignUpUserAsync(string email, string password, string name);
-
 
         public List<User> GetAllUsers();
 

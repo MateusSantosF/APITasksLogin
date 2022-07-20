@@ -1,4 +1,4 @@
-﻿using Login.Models.User;
+﻿using Login.Models;
 
 namespace Login.Services.UserRepository.interfaces
 {

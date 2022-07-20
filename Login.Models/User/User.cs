@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Login.Models.User
+namespace Login.Models
 {
     [Table("User")]
     public class User

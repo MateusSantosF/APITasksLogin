@@ -1,11 +1,6 @@
 ﻿using Login.Facades.UserFacade.interfaces;
-using Login.Models.User;
+using Login.Models;
 using Login.Services.UserRepository.interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Login.Facades.UserFacade
 {
@@ -19,7 +14,6 @@ namespace Login.Facades.UserFacade
             _userRepository = userRepository;
         }
 
-
         public User? GetUser(string email, string password)
         {
             return _userRepository.GetUser(email, password);
@@ -29,7 +23,6 @@ namespace Login.Facades.UserFacade
         {
 
             return await _userRepository.InsertUser(new User() { Id = Guid.NewGuid().ToString(),Email = email, Password = password, Name = name });
-
         }
 
         public List<User> GetAllUsers()
