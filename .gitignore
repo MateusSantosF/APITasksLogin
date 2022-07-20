@@ -11,6 +11,7 @@
 *.sln.docstates
 
 Mateus.Api.Login/appsettings.Development.json
+Mateus.Api.Login/appsettings.json
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
