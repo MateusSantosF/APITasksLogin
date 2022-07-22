@@ -10,9 +10,16 @@ using Login.Services.TokenService.interfaces;
 using Login.Services.UserRepository;
 using Login.Services.UserRepository.interfaces;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+
+
+
+var MyAllowSpecificOrigins = "_myAllowSpecificOrigins";
+
+
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +29,16 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Cors
+
+builder.Services.AddCors( options => {
+    options.AddPolicy(name: MyAllowSpecificOrigins, policy =>
+    {
+        policy.AllowAnyOrigin();
+        policy.AllowAnyHeader();
+    });
+});
 
 //Authentication
 var key = Encoding.ASCII.GetBytes(builder.Configuration.GetSection("Secrets").GetSection("Key").Value);
@@ -69,6 +86,7 @@ app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
+app.UseCors(MyAllowSpecificOrigins) ;
 
 app.MapControllers();
 

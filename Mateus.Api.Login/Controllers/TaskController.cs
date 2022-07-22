@@ -21,11 +21,10 @@ namespace Mateus.Api.Login.Controllers
 
         [HttpGet]
         [Authorize]
-        public IActionResult GetAllTasks()
+        public IActionResult GetAllTasks()      
         {
-            var userId = HttpContext.User.Claims.Where(c => c.Type.Equals(ClaimTypes.UserData)).FirstOrDefault().Value;
-
-
+            
+            var userId = HttpContext.User.Claims.Where( c => c.Type.Equals(ClaimTypes.UserData)).FirstOrDefault().Value;
 
             return Ok(_taskFacade.GetTasks(userId)); 
         }
@@ -37,7 +36,13 @@ namespace Mateus.Api.Login.Controllers
             var userId = HttpContext.User.Claims.Where(c => c.Type.Equals(ClaimTypes.UserData)).FirstOrDefault().Value;
 
             var result = _taskFacade.CreateTask(taskTitle, userId);
-            return result ? Ok("Task created successfully") : BadRequest("An error occurred while trying to create a Task");
+
+            if(result is null)
+            {
+                BadRequest("An error occurred while trying to create a Task");
+            }
+
+            return Ok(result);
         }
 
         [HttpPost("update")]
@@ -58,7 +63,6 @@ namespace Mateus.Api.Login.Controllers
             return result ? Ok("Deleted successfully") : NotFound("Task not found in database");
 
         }
-
 
 
     }

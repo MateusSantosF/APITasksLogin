@@ -1,11 +1,5 @@
 ﻿using Login.Facades.TaskFacade.interfaces;
-using Login.Models;
 using Login.Services.TaskService.interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Login.Facades.TaskFacade
 {
@@ -24,12 +18,14 @@ namespace Login.Facades.TaskFacade
             return _taskService.GetTasks(userId);
         }
 
-        public bool CreateTask(string taskTitle, string userId)
+        public Models.Task? CreateTask(string taskTitle, string userId)
         {
 
             var newTask = new Models.Task() { Id = Guid.NewGuid().ToString(), Title = taskTitle, HasChecked = false, UserId = userId };
+            
+            var result = _taskService.CreateTask(newTask);
 
-            return _taskService.CreateTask(newTask);
+            return result ? newTask : null;
         }
 
         public bool UpdateTask(string taskId)
